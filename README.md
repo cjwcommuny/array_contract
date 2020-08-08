@@ -9,5 +9,5 @@ def matrix_dot(x, y):
     return x @ y
 
 matrix_dot(torch.rand(3,4), torch.rand(4,5)) # OK
-matrix_dot(torch.rand(3,4), torch.rand(3,5)) # raise AssertException
+matrix_dot(torch.rand(3,4), torch.rand(3,5)) # raise AssertionError
 ```
