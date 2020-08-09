@@ -3,10 +3,10 @@ from collections import OrderedDict
 from functools import wraps
 from inspect import Signature
 
-from arraycontract.common import Trigger, Closure
+from arraycontract.common import Trigger, __Closure
 
 
-class NdimClosure(Closure):
+class NdimClosure(__Closure):
     def __call__(self, *args, **kwargs):
         bound_arguments: OrderedDict = self.func_signature.bind(*args, **kwargs).arguments
         for name, ndim in self.bound_constraints.items():

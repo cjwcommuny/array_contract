@@ -7,7 +7,7 @@ class Trigger:
     shape_check_trigger: bool = __debug__
 
 
-class Closure:
+class __Closure:
     def __init__(self, func, constraints, kwconstraints):
         self.func = func
         self.func_signature: inspect.Signature = inspect.signature(func)

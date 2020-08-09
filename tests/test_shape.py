@@ -21,17 +21,26 @@ def f3(x, y):
 def f4(x, y):
     pass
 
+@shape((1,...,3), (...,4,5))
+def f5(x, y):
+    pass
+
 class ShapeTest(unittest.TestCase):
     def test_ok(self):
         N1 = 5
         N2 = 6
         f1(torch.rand(3, 4, N1), torch.rand(N1, 2, 10), z=torch.rand(N2, 3, 3))
 
-    def test_ellipsis(self):
+    def test_ellipsis1(self):
         f2(torch.rand(3,4))
         f2(torch.rand(3,4,5))
         f2(torch.rand(3,4,5,6))
         f2(torch.rand(3,4,5,6,7))
+
+    def test_ellipsis2_ok(self):
+        f5(torch.rand(1, 4, 3), torch.rand(1,2,3,4,5))
+        f5(torch.rand(1, 4, 6, 3), torch.rand(4, 5))
+
 
     def test_underscore(self):
         undefined = 4

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="arraycontract",
-    version="0.0.1",
+    version="0.0.2",
     author="cjwcommuny",
     author_email="cjwcommuny@outlook.com",
     description="Check shape, ndim and dtype of tensor/ndarray of input of function",

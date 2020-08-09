@@ -4,7 +4,7 @@ from functools import wraps
 from inspect import Signature
 from typing import Tuple, Dict, Optional
 
-from arraycontract.common import Trigger, Closure
+from arraycontract.common import Trigger, __Closure
 
 _ = '_'
 
@@ -31,8 +31,8 @@ def shape_to_constraints(shape: tuple) -> Tuple[dict, Optional[int]]:
         if shape[idx] != _:
             constraints[idx] = shape[idx]
         idx += 1
-    limit = idx
-    for idx in range(len(shape) - 1, limit, -1):
+    limit = idx - len(shape)
+    for idx in range(-1, limit, -1):
         if shape[idx] != _:
             constraints[idx] = shape[idx]
     return constraints, None
@@ -64,7 +64,7 @@ def refine_bound_constraints(bound_constraints: OrderedDict) -> OrderedDict:
     return new_bound_constraints
 
 
-class ShapeClosure(Closure):
+class ShapeClosure(__Closure):
     def __init__(self, func, constraints, kwconstraints):
         super().__init__(func, constraints, kwconstraints)
         name2constraints = {name: shape_to_constraints(shape) for name, shape in self.bound_constraints.items()}
