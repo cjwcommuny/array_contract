@@ -26,7 +26,7 @@ def forward_linear(x):
     """
     return linear(x)
 
-forward_linear(torch.rand(4,5,3)) # ok
+forward_linear(torch.rand(4,5,3)) # OK
 forward_linear(torch.rand(4,4)) # raise AssertionError
 ```
 
@@ -55,5 +55,5 @@ Trigger.dtype_check_trigger = False
 def dtype_contract(x):
     print("not requires x.dtype == torch.long")
 
-dtype_contract(torch.rand(3, 4).float()) # ok
+dtype_contract(torch.rand(3, 4).float()) # OK
 ```

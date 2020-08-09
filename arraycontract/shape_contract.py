@@ -1,7 +1,5 @@
-import inspect
 from collections import OrderedDict
 from functools import wraps
-from inspect import Signature
 from typing import Tuple, Dict, Optional
 
 from arraycontract.common import Trigger, __Closure
