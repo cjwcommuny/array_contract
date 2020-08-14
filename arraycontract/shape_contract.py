@@ -2,7 +2,7 @@ from collections import OrderedDict
 from functools import wraps
 from typing import Tuple, Dict, Optional
 
-from arraycontract.common import Trigger, __Closure
+from arraycontract.common import Trigger, __Closure, auto_adapt_to_methods
 
 _ = '_'
 
@@ -46,7 +46,7 @@ def refine_bound_constraints(bound_constraints: OrderedDict) -> OrderedDict:
                 - key: dim_idx
                 - value: dim (int) or (name of another argument, dim_idx)
     """
-    dim_nameidx_reverse_map: Dict[int, Tuple[str, int]] = dict()
+    dim_nameidx_reverse_map: Dict[str, Tuple[str, int]] = dict()
     new_bound_constraints = OrderedDict()
     for name, constraints in bound_constraints.items():
         new_constraints = dict()
@@ -58,7 +58,8 @@ def refine_bound_constraints(bound_constraints: OrderedDict) -> OrderedDict:
                     new_constraints[idx] = dim_nameidx_reverse_map[dim]
             else:
                 new_constraints[idx] = dim
-        new_bound_constraints[name] = new_constraints
+        if len(new_constraints) != 0:
+            new_bound_constraints[name] = new_constraints
     return new_bound_constraints
 
 
@@ -93,6 +94,7 @@ class ShapeClosure(__Closure):
 
 
 def shape(*constraints, **kwconstraints):
+    @auto_adapt_to_methods
     def decorator(func):
         __enabled__ = kwconstraints.pop('__enabled__') if '__enabled__' in kwconstraints else True
         if not Trigger.shape_check_trigger or not __enabled__:

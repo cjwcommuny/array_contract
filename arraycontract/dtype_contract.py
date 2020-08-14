@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from functools import wraps
 
-from arraycontract.common import Trigger, __Closure
+from arraycontract.common import Trigger, __Closure, auto_adapt_to_methods
 
 
 class DtypeClosure(__Closure):
@@ -14,6 +14,7 @@ class DtypeClosure(__Closure):
 
 
 def dtype(*constraints, **kwconstraints):
+    @auto_adapt_to_methods
     def decorator(func):
         __enabled__ = kwconstraints.pop('__enabled__') if '__enabled__' in kwconstraints else True
         if not Trigger.dtype_check_trigger or not __enabled__:

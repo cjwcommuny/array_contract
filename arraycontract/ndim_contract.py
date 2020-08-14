@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from functools import wraps
 
-from arraycontract.common import Trigger, __Closure
+from arraycontract.common import Trigger, __Closure, auto_adapt_to_methods
 
 
 class NdimClosure(__Closure):
@@ -14,6 +14,7 @@ class NdimClosure(__Closure):
 
 
 def ndim(*constraints, **kwconstraints):
+    @auto_adapt_to_methods
     def decorator(func):
         __enabled__ = kwconstraints.pop('__enabled__') if '__enabled__' in kwconstraints else True
         if not Trigger.ndim_check_trigger or not __enabled__:
